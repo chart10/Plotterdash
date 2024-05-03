@@ -1,16 +1,17 @@
-import { body, validationResult } from 'express-validator';
+import { body, param, validationResult } from 'express-validator';
 import { BadRequestError } from '../errors/CustomError.js';
 import { TASK_STATUS } from '../../utils/constants.js';
+import mongoose from 'mongoose';
 
 const withValidationErrors = (validateValues) => {
   return [
     validateValues,
     (req, res, next) => {
-      console.log(Object.values(TASK_STATUS));
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         const errorMessages = errors.array().map((error) => error.msg);
-        return res.status(400).json(errorMessages);
+        console.log(errorMessages);
+        throw new BadRequestError(errorMessages);
       }
       next();
     },
@@ -31,4 +32,10 @@ export const validateTaskInput = withValidationErrors([
   body('category')
     .isIn(Object.values(TASK_STATUS))
     .withMessage('Invalid category'),
+]);
+
+export const validateMongoId = withValidationErrors([
+  param('id')
+    .custom((value) => mongoose.Types.ObjectId.isValid(value))
+    .withMessage('Invalid Mongo ID'),
 ]);

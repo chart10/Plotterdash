@@ -1,6 +1,9 @@
 import { Router } from 'express';
 const router = Router();
-import { validateTaskInput } from '../middleware/ValidationMiddleware.js';
+import {
+  validateTaskInput,
+  validateMongoId,
+} from '../middleware/ValidationMiddleware.js';
 import {
   getAllTasks,
   getSingleTask,
@@ -12,8 +15,8 @@ import {
 router.route('/').get(getAllTasks).post(validateTaskInput, createTask);
 router
   .route('/:id')
-  .get(getSingleTask)
-  .patch(validateTaskInput, editTask)
-  .delete(deleteTask);
+  .get(validateMongoId, getSingleTask)
+  .patch(validateTaskInput, validateMongoId, editTask)
+  .delete(validateMongoId, deleteTask);
 
 export default router;
