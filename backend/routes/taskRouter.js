@@ -1,6 +1,6 @@
 import { Router } from 'express';
 const router = Router();
-
+import { validateTaskInput } from '../middleware/ValidationMiddleware.js';
 import {
   getAllTasks,
   getSingleTask,
@@ -9,7 +9,11 @@ import {
   deleteTask,
 } from '../services/taskServices.js';
 
-router.route('/').get(getAllTasks).post(createTask);
-router.route('/:id').get(getSingleTask).patch(editTask).delete(deleteTask);
+router.route('/').get(getAllTasks).post(validateTaskInput, createTask);
+router
+  .route('/:id')
+  .get(getSingleTask)
+  .patch(validateTaskInput, editTask)
+  .delete(deleteTask);
 
 export default router;

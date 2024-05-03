@@ -1,4 +1,4 @@
-export const JOB_STATUS = {
+export const TASK_STATUS = {
   GENERAL: 'general',
   WORK: 'work',
   SCHOOL: 'school',

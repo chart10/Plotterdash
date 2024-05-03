@@ -1,5 +1,5 @@
 import mongoose, { mongo } from 'mongoose';
-import { JOB_STATUS } from '../../../utils/constants';
+import { TASK_STATUS } from '../../../utils/constants.js';
 
 const taskSchema = new mongoose.Schema(
   {
@@ -7,8 +7,8 @@ const taskSchema = new mongoose.Schema(
     details: String,
     category: {
       type: String,
-      enum: Object.values(JOB_STATUS),
-      default: JOB_STATUS.GENERAL,
+      enum: Object.values(TASK_STATUS),
+      default: TASK_STATUS.GENERAL,
     },
     complete: {
       type: Boolean,
