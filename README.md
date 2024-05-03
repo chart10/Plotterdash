@@ -15,3 +15,4 @@ Plotterdash is a task management web app built with the MERN stack. The front en
 - Add functionality to Profile page
 - Add functionality to Stats page
 - Deploy app
+- Write Documentation

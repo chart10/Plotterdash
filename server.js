@@ -3,7 +3,7 @@ dotenv.config();
 import express from 'express';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
-
+import { validateTest } from './backend/middleware/ValidationMiddleware.js';
 const app = express();
 
 // Routers
@@ -17,9 +17,9 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-app.post('/', (req, res) => {
-  console.log('fetching data');
-  res.send({ response: 'data received', data: req.body });
+app.post('/api/v1/test', validateTest, (req, res) => {
+  const { name } = req.body;
+  res.send({ response: `Hello, ${name}` });
 });
 
 app.use('/api/v1/tasks', taskRouter);
