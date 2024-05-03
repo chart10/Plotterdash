@@ -1,7 +1,8 @@
 import { body, param, validationResult } from 'express-validator';
-import { BadRequestError } from '../errors/CustomError.js';
+import { BadRequestError, NotFoundError } from '../errors/CustomError.js';
 import { TASK_STATUS } from '../../utils/constants.js';
 import mongoose from 'mongoose';
+import TaskList from '../daos/models/TaskModel.js';
 
 const withValidationErrors = (validateValues) => {
   return [
@@ -35,7 +36,10 @@ export const validateTaskInput = withValidationErrors([
 ]);
 
 export const validateMongoId = withValidationErrors([
-  param('id')
-    .custom((value) => mongoose.Types.ObjectId.isValid(value))
-    .withMessage('Invalid Mongo ID'),
+  param('id').custom(async (value) => {
+    const isValidId = mongoose.Types.ObjectId.isValid(value);
+    if (!isValidId) throw new BadRequestError('Invalid Mongo ID');
+    const task = await TaskList.findById(value);
+    if (!task) throw new NotFoundError(`no task with id ${value} found`);
+  }),
 ]);
