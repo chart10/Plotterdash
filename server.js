@@ -8,6 +8,7 @@ const app = express();
 
 // Routers
 import taskRouter from './backend/routes/taskRouter.js';
+import authRouter from './backend/routes/authRouter.js';
 
 // Middleware
 import errorHandlerMiddleware from './backend/middleware/ErrorHandlerMiddleware.js';
@@ -23,6 +24,7 @@ app.post('/api/v1/test', validateTest, (req, res) => {
 });
 
 app.use('/api/v1/tasks', taskRouter);
+app.use('/api/v1/auth', authRouter);
 
 // 404 NOT FOUND
 app.use('*', (req, res) => {
