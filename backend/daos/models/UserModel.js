@@ -3,11 +3,13 @@ import mongoose, { mongo } from 'mongoose';
 const UserSchema = new mongoose.Schema({
   username: String,
   password: String,
+  email: String,
   firstName: String,
   lastName: String,
   role: {
-    enum: ['users', 'admin'],
-    default: 'admin',
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user',
   },
 });
 
