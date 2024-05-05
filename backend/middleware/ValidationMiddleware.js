@@ -69,3 +69,10 @@ export const validateRegisterInput = withValidationErrors([
     .isLength({ min: 5, max: 20 })
     .withMessage('Your password must be between 5 and 20 characters'),
 ]);
+
+export const validateLoginInput = [
+  body('email_username')
+    .notEmpty()
+    .withMessage('You must enter an email or username'),
+  body('password').notEmpty().withMessage('You must enter a password'),
+];
