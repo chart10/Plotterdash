@@ -3,7 +3,8 @@ import TaskList from '../daos/models/TaskModel.js';
 import { StatusCodes } from 'http-status-codes';
 
 export const getAllTasks = async (req, res) => {
-  const allTasks = await TaskList.find({});
+  console.log(req.user);
+  const allTasks = await TaskList.find({ createdBy: req.user.userId });
   res.status(StatusCodes.OK).json({ allTasks });
 };
 
@@ -14,6 +15,7 @@ export const getSingleTask = async (req, res) => {
 };
 
 export const createTask = async (req, res) => {
+  req.body.createdBy = req.user.userId;
   const newTask = await TaskList.create(req.body);
   res.status(StatusCodes.CREATED).json({ msg: 'task added', newTask });
 };
