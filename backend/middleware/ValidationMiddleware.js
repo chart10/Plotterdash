@@ -1,5 +1,9 @@
 import { body, param, validationResult } from 'express-validator';
-import { BadRequestError, NotFoundError } from '../errors/CustomError.js';
+import {
+  BadRequestError,
+  NotFoundError,
+  UnauthorizedError,
+} from '../errors/CustomError.js';
 import { TASK_STATUS } from '../../utils/constants.js';
 import mongoose from 'mongoose';
 import TaskList from '../daos/models/TaskModel.js';
@@ -15,6 +19,9 @@ const withValidationErrors = (validateValues) => {
         console.log(errorMessages);
         if (errorMessages[0].startsWith('No task')) {
           throw new NotFoundError(errorMessages);
+        }
+        if (errorMessages[0].startsWith('Not authorized')) {
+          throw new UnauthorizedError('Not authorized to access this route');
         }
         throw new BadRequestError(errorMessages);
       }
@@ -40,11 +47,17 @@ export const validateTaskInput = withValidationErrors([
 ]);
 
 export const validateMongoId = withValidationErrors([
-  param('id').custom(async (value) => {
+  param('id').custom(async (value, { req }) => {
     const isValidId = mongoose.Types.ObjectId.isValid(value);
     if (!isValidId) throw new BadRequestError('Invalid Mongo ID format');
     const task = await TaskList.findById(value);
     if (!task) throw new NotFoundError(`No task with id ${value} found`);
+    const isAdmin = req.user.role === 'admin';
+    const isOwner = req.user.userId === task.createdBy.toString();
+    console.log(isAdmin);
+    console.log(isOwner);
+    if (!isAdmin && !isOwner)
+      throw new UnauthorizedError('Not authorized to access this route');
   }),
 ]);
 

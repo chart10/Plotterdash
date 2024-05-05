@@ -3,7 +3,6 @@ import TaskList from '../daos/models/TaskModel.js';
 import { StatusCodes } from 'http-status-codes';
 
 export const getAllTasks = async (req, res) => {
-  console.log(req.user);
   const allTasks = await TaskList.find({ createdBy: req.user.userId });
   res.status(StatusCodes.OK).json({ allTasks });
 };
