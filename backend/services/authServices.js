@@ -2,6 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import UserList from '../daos/models/UserModel.js';
 import { hashPassword, comparePassword } from '../../utils/passwordUtils.js';
 import { UnauthenticatedError } from '../errors/CustomError.js';
+import { createJWT } from '../../utils/tokenUtils.js';
 
 export const register = async (req, res) => {
   const isFirstAccount = (await UserList.countDocuments()) === 0;
@@ -25,5 +26,7 @@ export const login = async (req, res) => {
     throw new UnauthenticatedError('Invalid credentials');
   }
 
-  res.status(StatusCodes.OK).json({ msg: 'user found', user });
+  const token = createJWT({ userId: user._id, role: user.role });
+
+  res.status(StatusCodes.OK).json({ token });
 };
