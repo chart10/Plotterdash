@@ -9,6 +9,6 @@ export const authenticateUser = async (req, res, next) => {
     req.user = { userId, role };
     next();
   } catch (error) {
-    throw new UnauthenticatedError(error);
+    throw new UnauthenticatedError('Authentication invalid');
   }
 };
