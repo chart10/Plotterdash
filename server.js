@@ -12,6 +12,7 @@ import authRouter from './backend/routes/authRouter.js';
 
 // Middleware
 import errorHandlerMiddleware from './backend/middleware/ErrorHandlerMiddleware.js';
+import { authenticateUser } from './backend/middleware/AuthMiddleware.js';
 
 app.use(express.json());
 if (process.env.NODE_ENV === 'development') {
@@ -23,7 +24,7 @@ app.post('/api/v1/test', validateTest, (req, res) => {
   res.send({ response: `Hello, ${name}` });
 });
 
-app.use('/api/v1/tasks', taskRouter);
+app.use('/api/v1/tasks', authenticateUser, taskRouter);
 app.use('/api/v1/auth', authRouter);
 
 // 404 NOT FOUND
