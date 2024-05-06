@@ -10,6 +10,7 @@ const app = express();
 // Routers
 import taskRouter from './backend/routes/taskRouter.js';
 import authRouter from './backend/routes/authRouter.js';
+import userRouter from './backend/routes/userRouter.js';
 
 // Middleware
 import errorHandlerMiddleware from './backend/middleware/ErrorHandlerMiddleware.js';
@@ -28,6 +29,7 @@ app.post('/api/v1/test', validateTest, (req, res) => {
 
 app.use('/api/v1/tasks', authenticateUser, taskRouter);
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/user', authenticateUser, userRouter);
 
 // 404 NOT FOUND
 app.use('*', (req, res) => {
