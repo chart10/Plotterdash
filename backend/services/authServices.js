@@ -14,6 +14,7 @@ export const register = async (req, res) => {
   const newUser = await UserList.create(req.body);
   res.status(StatusCodes.CREATED).json({ msg: 'User successfully created' });
 };
+
 export const login = async (req, res) => {
   let user = await UserList.findOne({ username: req.body.email_username });
   if (!user) {

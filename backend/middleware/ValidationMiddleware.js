@@ -89,3 +89,22 @@ export const validateLoginInput = [
     .withMessage('You must enter an email or username'),
   body('password').notEmpty().withMessage('You must enter a password'),
 ];
+
+export const validateEditUserInput = withValidationErrors([
+  body('username')
+    .notEmpty()
+    .withMessage('A username is required')
+    .isLength({ min: 4, max: 25 })
+    .withMessage('Your username must be between 4 and 25 characters'),
+  body('email')
+    .notEmpty()
+    .withMessage('An email is required')
+    .isEmail()
+    .withMessage('Invalid email format')
+    .custom(async (email, { req }) => {
+      const user = await UserList.findOne({ email });
+      if (user && user._id.toString() !== req.user.userId) {
+        throw new BadRequestError('An account with that email already exists');
+      }
+    }),
+]);
