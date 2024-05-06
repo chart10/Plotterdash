@@ -30,15 +30,6 @@ const withValidationErrors = (validateValues) => {
   ];
 };
 
-export const validateTest = withValidationErrors([
-  body('name')
-    .notEmpty()
-    .withMessage('A name is required')
-    .isLength({ min: 3, max: 50 })
-    .withMessage('name must be between 3 and 50 character long')
-    .trim(),
-]);
-
 export const validateTaskInput = withValidationErrors([
   body('title').notEmpty().withMessage('A title for a task is required'),
   body('category')
