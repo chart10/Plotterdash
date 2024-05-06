@@ -1,5 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import UserList from '../daos/models/UserModel.js';
+import TaskList from '../daos/models/TaskModel.js';
 
 export const getCurrentUser = async (req, res) => {
   const user = await UserList.findOne({ _id: req.user.userId });
@@ -7,7 +8,9 @@ export const getCurrentUser = async (req, res) => {
   res.status(StatusCodes.OK).json({ user: userWithoutPassword });
 };
 export const getApplicationStats = async (req, res) => {
-  res.status(StatusCodes.OK).json({ msg: 'Get Application stats' });
+  const users = await UserList.countDocuments();
+  const tasks = await TaskList.countDocuments();
+  res.status(StatusCodes.OK).json({ users, tasks });
 };
 export const editUser = async (req, res) => {
   const object = { ...req.body };
