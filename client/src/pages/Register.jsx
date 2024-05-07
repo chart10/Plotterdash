@@ -1,13 +1,32 @@
-import { Link } from 'react-router-dom';
+import { Form, redirect, Link, useNavigation } from 'react-router-dom';
 import { LogoLightSmall, FormRow } from '../components';
 import Wrapper from '../assets/wrappers/RegisterAndLoginPage';
+import customFetch from '../utils/customFetch';
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  console.log(data);
+  try {
+    await customFetch.post('/auth/register', data);
+    return redirect('/login');
+  } catch (error) {
+    console.log(error.response.data.msg);
+    return error;
+  }
+};
 
 const Register = () => {
+  const navigation = useNavigation();
+  console.log(navigation);
+  const isSubmitting = navigation.state === 'submitting';
+
   return (
     <Wrapper>
-      <form className='form'>
+      <Form method='post' className='form'>
         <LogoLightSmall />
         <h4>Register</h4>
+        <FormRow type='username' name='username' defaultValue='chich' />
         <FormRow
           type='text'
           name='name'
@@ -22,8 +41,8 @@ const Register = () => {
         />
         <FormRow type='email' name='email' defaultValue='chich@gmail.com' />
         <FormRow type='password' name='password' defaultValue='12345' />
-        <button type='submit' className='btn btn-block'>
-          submit
+        <button type='submit' className='btn btn-block' disabled={isSubmitting}>
+          {isSubmitting ? 'Submitting' : 'Submit'}
         </button>
         <p>
           Already a member?
@@ -31,7 +50,7 @@ const Register = () => {
             Login
           </Link>
         </p>
-      </form>
+      </Form>
     </Wrapper>
   );
 };

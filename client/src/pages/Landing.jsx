@@ -28,9 +28,10 @@ const Landing = () => {
             Login / Demo User
           </Link>
         </div>
-        <img src={main} alt='job hunt' className='img main-img' />
+        <div className='img-background'>
+          <img src={main} alt='job hunt' className='img main-img' />
+        </div>
       </div>
-      <div className='content'>some content</div>
     </Wrapper>
   );
 };

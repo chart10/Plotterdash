@@ -14,6 +14,7 @@ const Wrapper = styled.section`
     display: grid;
     align-items: center;
     margin-top: -3rem;
+    padding-top: 150px;
   }
   h1 {
     font-weight: 700;
@@ -37,12 +38,23 @@ const Wrapper = styled.section`
   .btn {
     padding: 0.75rem;
   }
+  .img-background {
+    display: none;
+    width: fit-content;
+    height: fit-content;
+    background-color: #eae2b7;
+    padding: 20px;
+    border-radius: var(--border-radius);
+  }
   @media (min-width: 992px) {
     .page {
       grid-template-columns: 1fr 400px;
       column-gap: 3rem;
     }
     .main-img {
+      display: block;
+    }
+    .img-background {
       display: block;
     }
   }

@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.main`
-  min-height: 100vh;
+  height: 100vh;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
+
   img {
     width: 90vw;
     max-width: 600px;
@@ -13,7 +14,7 @@ const Wrapper = styled.main`
     margin-bottom: 2rem;
     margin-top: -3rem;
   }
-  h3 {
+  h1 {
     margin-bottom: 0.5rem;
   }
   p {

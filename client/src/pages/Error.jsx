@@ -19,10 +19,12 @@ const Error = () => {
   }
   console.log(error);
   return (
-    <div>
-      <h1>Something went wrong!</h1>
-      <Link to='/'>Back Home</Link>
-    </div>
+    <Wrapper>
+      <div>
+        <h1>Something went wrong!</h1>
+        <Link to='/'>Back Home</Link>
+      </div>
+    </Wrapper>
   );
 };
 export default Error;
