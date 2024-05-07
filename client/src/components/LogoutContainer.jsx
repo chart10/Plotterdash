@@ -15,7 +15,7 @@ const LogoutContainer = () => {
         onClick={() => setShowLogout(!showLogout)}
       >
         <RiUser4Fill />
-        {user?.name}
+        {user?.firstName || user?.username}
         <RiArrowDownSFill />
       </button>
       <div className={showLogout ? 'dropdown show-dropdown' : 'dropdown'}>
