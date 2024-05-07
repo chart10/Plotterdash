@@ -13,7 +13,7 @@ export const action = async ({ request }) => {
     toast.success('Registration successful');
     return redirect('/login');
   } catch (error) {
-    console.log(error.response.data.msg);
+    console.log(error);
     toast.error(error?.response?.data?.msg);
     return error;
   }
@@ -21,7 +21,6 @@ export const action = async ({ request }) => {
 
 const Register = () => {
   const navigation = useNavigation();
-  console.log(navigation);
   const isSubmitting = navigation.state === 'submitting';
 
   return (
