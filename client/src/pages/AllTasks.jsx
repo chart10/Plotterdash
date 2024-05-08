@@ -14,15 +14,22 @@ export const loader = async () => {
     return error;
   }
 };
+
+const allTasksContext = createContext();
+
 const AllTasks = () => {
-  const data = useLoaderData();
-  console.log(data);
+  const allTasks = useLoaderData();
+  console.log(allTasks);
 
   return (
-    <>
+    <allTasksContext.Provider value={{ allTasks }}>
       <SearchContainer />
       <TasksContainer />
-    </>
+    </allTasksContext.Provider>
   );
+};
+
+export const useAllTasksContext = () => {
+  useContext(allTasksContext);
 };
 export default AllTasks;
