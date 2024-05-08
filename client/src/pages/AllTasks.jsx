@@ -7,7 +7,7 @@ import { useContext, createContext } from 'react';
 export const loader = async () => {
   try {
     const { data } = await customFetch.get('/tasks');
-    return data;
+    return { data };
   } catch (error) {
     console.log(error);
     toast.error(error?.response?.data?.msg);
@@ -18,18 +18,16 @@ export const loader = async () => {
 const allTasksContext = createContext();
 
 const AllTasks = () => {
-  const allTasks = useLoaderData();
-  console.log(allTasks);
+  const { data } = useLoaderData();
+  console.log(data);
 
   return (
-    <allTasksContext.Provider value={{ allTasks }}>
+    <allTasksContext.Provider value={{ data }}>
       <SearchContainer />
       <TasksContainer />
     </allTasksContext.Provider>
   );
 };
 
-export const useAllTasksContext = () => {
-  useContext(allTasksContext);
-};
+export const useAllTasksContext = () => useContext(allTasksContext);
 export default AllTasks;
