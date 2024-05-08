@@ -5,7 +5,6 @@ import { useAllTasksContext } from '../pages/AllTasks';
 const TasksContainer = () => {
   const { data } = useAllTasksContext();
   const { allTasks } = data;
-  console.log(allTasks);
   if (allTasks.length === 0) {
     return (
       <Wrapper>

@@ -9,7 +9,6 @@ day.extend(advancedFormat);
 
 const Task = ({ _id, title, details, category, complete, createdAt }) => {
   const date = day(createdAt).format('MMM Do, YYYY');
-  console.log(date);
 
   return (
     <Wrapper>
@@ -28,7 +27,9 @@ const Task = ({ _id, title, details, category, complete, createdAt }) => {
           <div className={`status ${category}`}>{category}</div>
         </div>
         <footer className='actions'>
-          <Link className='btn edit-btn'>Edit</Link>
+          <Link to={`/dashboard/edit-task/${_id}`} className='btn edit-btn'>
+            Edit
+          </Link>
           <Form>
             <button type='submit' className='btn delete-btn'>
               delete

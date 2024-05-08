@@ -19,7 +19,6 @@ const allTasksContext = createContext();
 
 const AllTasks = () => {
   const { data } = useLoaderData();
-  console.log(data);
 
   return (
     <allTasksContext.Provider value={{ data }}>

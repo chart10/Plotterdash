@@ -7,6 +7,7 @@ import {
   DashboardLayout,
   Error,
   AddTask,
+  EditTask,
   Stats,
   AllTasks,
   Profile,
@@ -16,8 +17,10 @@ import {
 import { action as registerAction } from './pages/Register';
 import { action as loginAction } from './pages/Login';
 import { action as addTaskAction } from './pages/AddTask';
+import { action as editTaskAction } from './pages/EditTask';
 import { loader as dashboardLoader } from './pages/DashboardLayout';
 import { loader as allTasksLoader } from './pages/AllTasks';
+import { loader as editTasksLoader } from './pages/EditTask';
 
 export const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem('darkTheme') == 'true';
@@ -73,6 +76,12 @@ const router = createBrowserRouter([
           {
             path: 'admin',
             element: <Admin />,
+          },
+          {
+            path: 'edit-task/:id',
+            element: <EditTask />,
+            loader: editTasksLoader,
+            action: editTaskAction,
           },
         ],
       },
