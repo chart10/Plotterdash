@@ -15,6 +15,7 @@ import {
 
 import { action as registerAction } from './pages/Register';
 import { action as loginAction } from './pages/Login';
+import { action as addTaskAction } from './pages/AddTask';
 import { loader as dashboardLoader } from './pages/DashboardLayout';
 
 export const checkDefaultTheme = () => {
@@ -57,6 +58,7 @@ const router = createBrowserRouter([
           {
             path: 'add-task',
             element: <AddTask />,
+            action: addTaskAction,
           },
           {
             path: 'stats',
