@@ -16,8 +16,19 @@ export const loader = async ({ params }) => {
   }
 };
 
-export const action = async () => {
-  return null;
+export const action = async ({ request, params }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  console.log(data);
+  try {
+    await customFetch.patch(`/tasks/${params.id}`, data);
+    toast.success('Task successfully updated');
+    return redirect('/dashboard');
+  } catch (error) {
+    console.log(error);
+    toast.error(error?.response?.data?.mdg);
+    return error;
+  }
 };
 
 const EditTask = () => {
