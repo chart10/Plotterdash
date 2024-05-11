@@ -12,3 +12,8 @@ export const action = async ({ params }) => {
   }
   return redirect('/dashboard');
 };
+
+const DeleteTask = () => {
+  return <div>DeleteTask</div>;
+};
+export default DeleteTask;
