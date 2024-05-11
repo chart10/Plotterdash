@@ -30,7 +30,7 @@ const Task = ({ _id, title, details, category, complete, createdAt }) => {
           <Link to={`/dashboard/edit-task/${_id}`} className='btn edit-btn'>
             Edit
           </Link>
-          <Form>
+          <Form method='post' action={`./delete-task/${_id}`}>
             <button type='submit' className='btn delete-btn'>
               delete
             </button>

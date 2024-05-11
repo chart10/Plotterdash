@@ -18,6 +18,7 @@ import { action as registerAction } from './pages/Register';
 import { action as loginAction } from './pages/Login';
 import { action as addTaskAction } from './pages/AddTask';
 import { action as editTaskAction } from './pages/EditTask';
+import { action as deleteTaskAction } from './pages/DeleteTask';
 import { loader as dashboardLoader } from './pages/DashboardLayout';
 import { loader as allTasksLoader } from './pages/AllTasks';
 import { loader as editTasksLoader } from './pages/EditTask';
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
             element: <EditTask />,
             loader: editTasksLoader,
             action: editTaskAction,
+          },
+          {
+            path: 'delete-task/:id',
+            action: deleteTaskAction,
           },
         ],
       },
