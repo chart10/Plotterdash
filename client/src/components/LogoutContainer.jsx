@@ -14,7 +14,12 @@ const LogoutContainer = () => {
         className='btn logout-btn'
         onClick={() => setShowLogout(!showLogout)}
       >
-        <RiUser4Fill />
+        {user.avatar ? (
+          <img src={user.avatar} alt='avatar' className='img' />
+        ) : (
+          <RiUser4Fill />
+        )}
+
         {user?.firstName || user?.username}
         <RiArrowDownSFill />
       </button>

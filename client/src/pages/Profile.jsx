@@ -7,12 +7,12 @@ import { toast } from 'react-toastify';
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
+
   const file = formData.get('avatar');
   if (file && file.size > 500000) {
     toast.error('File size is too large');
     return null;
   }
-  console.log(formData);
   try {
     await customFetch.patch('/user/edit-user', formData);
     toast.success('Profile updated');

@@ -4,6 +4,7 @@ import express from 'express';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
+import { v2 as cloudinary } from 'cloudinary';
 const app = express();
 
 // Routers
@@ -20,6 +21,12 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // Middleware
 import errorHandlerMiddleware from './backend/middleware/ErrorHandlerMiddleware.js';
 import { authenticateUser } from './backend/middleware/AuthMiddleware.js';
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
