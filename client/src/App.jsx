@@ -19,6 +19,7 @@ import { action as loginAction } from './pages/Login';
 import { action as addTaskAction } from './pages/AddTask';
 import { action as editTaskAction } from './pages/EditTask';
 import { action as deleteTaskAction } from './pages/DeleteTask';
+import { action as profileAction } from './pages/Profile';
 import { loader as dashboardLoader } from './pages/DashboardLayout';
 import { loader as allTasksLoader } from './pages/AllTasks';
 import { loader as editTasksLoader } from './pages/EditTask';
@@ -74,6 +75,7 @@ const router = createBrowserRouter([
           {
             path: 'profile',
             element: <Profile />,
+            action: profileAction,
           },
           {
             path: 'admin',
