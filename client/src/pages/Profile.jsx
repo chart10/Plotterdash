@@ -6,9 +6,52 @@ import customFetch from '../utils/customFetch';
 import { toast } from 'react-toastify';
 
 const Profile = () => {
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting';
+
   const { user } = useOutletContext();
-  const { name, lastName, email } = user;
+  const { firstName, lastName, email } = user;
   console.log(user);
-  return <Wrapper></Wrapper>;
+  return (
+    <Wrapper>
+      <Form method='post' className='form' encType='multipart/form-data'>
+        <h4 className='form-title'>Profile</h4>
+        <div className='form-cetner'>
+          <div className='form-row'>
+            <label htmlFor='avatar' className='form-label'>
+              Select an image file (max 0.5 MB)
+            </label>
+            <input
+              type='file'
+              id='avatar'
+              name='avatar'
+              className='form-input'
+              accept='image/*'
+            />
+          </div>
+          <FormRow
+            type='text'
+            name='firstName'
+            labelText='first name'
+            defaultValue={firstName}
+          />
+          <FormRow
+            type='text'
+            name='lastName'
+            labelText='last name'
+            defaultValue={lastName}
+          />
+          <FormRow type='text' name='email' defaultValue={email} />
+          <button
+            className='btn btn-block form-btn'
+            type='submit'
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'submitting' : 'submit'}
+          </button>
+        </div>
+      </Form>
+    </Wrapper>
+  );
 };
 export default Profile;
