@@ -11,17 +11,24 @@ import taskRouter from './backend/routes/taskRouter.js';
 import authRouter from './backend/routes/authRouter.js';
 import userRouter from './backend/routes/userRouter.js';
 
+// Public Directory
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import path from 'path';
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 // Middleware
 import errorHandlerMiddleware from './backend/middleware/ErrorHandlerMiddleware.js';
 import { authenticateUser } from './backend/middleware/AuthMiddleware.js';
 
-app.use(express.json());
-app.use(cookieParser());
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+app.use(express.static(path.resolve(__dirname, './public')));
+app.use(cookieParser());
+app.use(express.json());
 
-//dummy route
+// Dummy Route
 app.get('/api/v1/test', (req, res) => {
   res.json({ msg: 'test route' });
 });
@@ -30,12 +37,12 @@ app.use('/api/v1/tasks', authenticateUser, taskRouter);
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/user', authenticateUser, userRouter);
 
-// 404 NOT FOUND
+// 404 Not Found
 app.use('*', (req, res) => {
   res.status(404).json({ msg: 'Not found' });
 });
 
-// ERROR MIDDLEWARE
+// Error Middleware
 app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 5100;

@@ -31,7 +31,7 @@ const Register = () => {
         <FormRow type='username' name='username' defaultValue='chich' />
         <FormRow
           type='text'
-          name='name'
+          name='firstName'
           labelText='First Name'
           defaultValue='Christian'
         />
