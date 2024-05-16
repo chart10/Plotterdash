@@ -28,7 +28,7 @@ const Profile = () => {
   const isSubmitting = navigation.state === 'submitting';
 
   const { user } = useOutletContext();
-  const { firstName, lastName, email } = user;
+  const { username, firstName, lastName, email } = user;
   return (
     <Wrapper>
       <Form method='post' className='form' encType='multipart/form-data'>
@@ -46,6 +46,12 @@ const Profile = () => {
               accept='image/*'
             />
           </div>
+          <FormRow
+            type='text'
+            name='username'
+            labelText='username'
+            defaultValue={username}
+          />
           <FormRow
             type='text'
             name='firstName'

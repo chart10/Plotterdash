@@ -13,6 +13,7 @@ export const getApplicationStats = async (req, res) => {
   res.status(StatusCodes.OK).json({ users, tasks });
 };
 export const editUser = async (req, res) => {
+  console.log(req.file);
   const object = { ...req.body };
   delete object.password;
   console.log(object);
